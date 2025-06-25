@@ -1,0 +1,97 @@
+<body>
+  <!DOCTYPE html>
+<html>
+<head>
+    <title>Contagem Regressiva para o Evento!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Dancing Script, cursive;
+            display: flex; /* Para centralizar o contador */
+            flex-direction: column; /* Garante que os itens fiquem um abaixo do outro */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza horizontalmente cada item */
+            min-height: 100vh; /* Ocupa a altura total da tela */
+            margin: 0; /* Remove margens padrão do navegador */
+            background-color: #FCF; /* Cor meio rosa claro de fundo de fallback se a imagem não carregar */
+
+            /* --- Configurações da IMAGEM DE FUNDO --- */
+            background-image: url('rapunzel_lanternas.png'); /* Substitua pelo URL ou caminho da sua imagem */
+            background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+            background-position: center; /* Centraliza a imagem */
+            background-repeat: no-repeat; /* Evita que a imagem se repita */
+            background-attachment: fixed; /* Mantém a imagem fixa ao rolar (opcional) */
+            /* --- Fim das Configurações da IMAGEM DE FUNDO --- */
+
+            color: #fff; /* Cor do texto para contraste com o fundo escuro (se sua imagem for escura) */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Sombra no texto para melhor legibilidade */
+p {
+    font-family: 'Dancing Script', cursive;
+    color: #FFD700;/* Cor dourado */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    line-height: 1.2;
+    padding-top: 5vh;
+}
+        }
+        .contador {
+            font-size: 2.5em; /* Tamanho maior para o contador */
+            font-weight: bold;
+            color:  #FFF;/* Cor branco para o contador, destaque */
+            text-align: center;
+            padding: 30px;
+            /* background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para o contador (opcional) */
+            border-radius: 15px; /* Bordas arredondadas */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra para destacar o contador */
+        }
+        .contador span {
+            display: block;
+            font-size: 0.5em; /* Tamanho menor para "dias", "horas" */
+            font-weight: normal;
+            color:  #660033; /* Cor rosa escuro diferente para as labels */
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+  <p class="frase-evento">Contagem regressiva para o nosso grande dia:</p>
+<div class="contador" id="meuContador"></div>
+  </body>
+<script>
+    // Data e hora alvo: 9 de agosto de 2025, às 19h00
+    // ATENÇÃO: Mês 7 para Agosto (Janeiro é 0, Fevereiro é 1, ..., Julho é 6, Agosto é 7)
+    const dataAlvo = new Date(2025, 7, 9, 19, 0, 0).getTime();
+
+    // Atualiza o contador a cada segundo
+    const x = setInterval(function() {
+        const agora = new Date().getTime();
+        const diferenca = dataAlvo - agora;
+
+        // Cálculos para dias, horas, minutos e segundos
+        const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+        // Exibe o resultado
+        document.getElementById("meuContador").innerHTML =
+            dias + "<span>dias</span> " +
+            horas + "<span>horas</span> " +
+            minutos + "<span>minutos</span> " +
+            segundos + "<span>segundos</span> ";
+
+        // Quando a contagem termina
+        if (diferenca < 0) {
+            clearInterval(x);
+            document.getElementById("meuContador").innerHTML = "O evento começou!";
+            // Você pode adicionar um link para o evento aqui, por exemplo:
+            // document.getElementById("meuContador").innerHTML += '<br><a href="link-do-evento.com.br" style="color: #fff; text-decoration: none;">Acesse o Evento!</a>';
+        }
+    }, 1000); // 1000 milissegundos = 1 segundo
+</script>
+
+</body>
+</html>
